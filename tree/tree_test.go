@@ -6,11 +6,21 @@ import (
 )
 
 func TestSorter(t *testing.T) {
-	var s Sorter[int]
-	s = NewComparer(45)
-	fmt.Println(howBig(s, 10))
-}
+	tree := New[int](1, NewComparer[int]())
+	tree.Insert(5)
+	tree.Insert(253)
+	tree.Insert(233)
+	tree.Insert(1000)
+	tree.Insert(10)
 
-func howBig[T any](s Sorter[T], input T) int {
-	return s.compareTo(input)
+	iter := tree.NewIterator()
+	for {
+		val, ok := iter.Iter()
+		if !ok {
+			break
+		} else {
+			fmt.Println(val)
+		}
+	}
+
 }
